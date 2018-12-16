@@ -1,0 +1,18 @@
+galaxy_info:
+  role_name: openvswitch
+  author: githubfoam
+  description: ansible role to deploy openvswitch
+  company: NA
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+   - name: Ubuntu
+     versions:
+     - bionic
+  galaxy_tags:
+    - virtualswitch
+    - ovs
+    - sdn
+dependencies: []
+  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
+  # if you add dependencies to this list.

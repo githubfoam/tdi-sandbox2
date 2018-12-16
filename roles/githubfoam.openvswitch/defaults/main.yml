@@ -1,0 +1,3 @@
+---
+# defaults file for ansible-role-openvswitch
+openvswitch_packages_state: present
