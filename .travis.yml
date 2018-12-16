@@ -17,9 +17,9 @@ env:
   # - INSTANCE=default-centos-74
 services:
   - docker
-before_install:
-  - curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 3.5.13
-  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+# before_install:
+#   - curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 3.5.13
+#   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 jobs:
   include:
     - stage: kitchen create
