@@ -1,7 +1,7 @@
 require 'rake/testtask'
 
 # run tests
-task default: [:lint, 'test:check']
+#task default: [:lint, 'test:check']
 
 namespace :test do
   # run inspec check to verify that the profile is properly configured
