@@ -7,7 +7,8 @@ rvm:
   - 2.5
 sudo: false
 env:
-  # global:
+  global:
+     - DOCKER_COMPOSE_VERSION=1.23.2
   #  - distribution=ubuntu
   #    version=18.04
   #  - COMMIT=${TRAVIS_COMMIT::8}
@@ -17,11 +18,22 @@ env:
   # - INSTANCE=default-centos-74
 services:
   - docker
-# before_install:
-#   - curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 3.5.13
-#   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+before_install:
+  # download the latest version of Docker Compose
+  # ensure you have the latest version, check the Compose repository release page on GitHub.
+  - sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  # Apply executable permissions to the binary
+  - sudo chmod +x /usr/local/bin/docker-compose
+  # Test the installation
+  - docker-compose --version
+  #  retrieve the latest workstation images
+  - sudo docker-compose pull
+  - wget -q https://raw.githubusercontent.com/learn-chef/inspec/master/docker-compose.yml
 jobs:
   include:
-    - stage: kitchen create
+    - stage: rake run
+      script:
+      - bundle exec rake
+    - stage: rake run
       script:
       - bundle exec rake
