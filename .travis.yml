@@ -27,8 +27,10 @@ before_install:
   # Test the installation
   - docker-compose --version
   #  retrieve the latest workstation images
-  - sudo docker-compose pull
   - wget -q https://raw.githubusercontent.com/learn-chef/inspec/master/docker-compose.yml
+  - sudo docker-compose pull
+  # start the containers. The -d argument starts the containers in the background.
+  - docker-compose up -d
 jobs:
   include:
     - stage: rake run
