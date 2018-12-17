@@ -5,7 +5,7 @@ bundler_args: --without integration
 rvm:
   #- 2.3
   - 2.5
-sudo: false
+sudo: required
 env:
   global:
      - DOCKER_COMPOSE_VERSION=1.23.2
@@ -25,17 +25,17 @@ before_install:
   # Apply executable permissions to the binary
   - sudo chmod +x /usr/local/bin/docker-compose
   # Test the installation
-  - docker-compose --version
+  - sudo docker-compose --version
   #  retrieve the latest workstation images
   - wget -q https://raw.githubusercontent.com/learn-chef/inspec/master/docker-compose.yml
   - sudo docker-compose pull
   # start the containers. The -d argument starts the containers in the background.
-  - docker-compose up -d
+  - sudo docker-compose up -d
 jobs:
   include:
-    - stage: rake run
+    - stage: start an interactive Bash session on the workstation container.
       script:
-      - bundle exec rake
+      - docker exec -d workstation apt-get install -y auditd
     - stage: rake run
       script:
       - bundle exec rake
