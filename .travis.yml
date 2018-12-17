@@ -33,9 +33,15 @@ before_install:
   - sudo docker-compose up -d
 jobs:
   include:
-    - stage: start an interactive Bash session on the workstation container.
+    - stage: run dev-sec/linux-baseline profile from supermarket on container target.
       script:
-      - docker exec -d workstation apt-get install -y auditd
-    - stage: rake run
+      - sudo docker exec -d workstation inspec supermarket exec dev-sec/linux-baseline -t ssh://root:password@target
+    - stage: run dev-sec/linux-baseline profile from github sources on container target. with "package-08" control
       script:
-      - bundle exec rake
+      - sudo docker exec -d workstation inspec exec https://github.com/dev-sec/linux-baseline -t ssh://root:password@target --controls package-08
+    - stage: tear down the cluster
+      script:
+      - sudo docker-compose down --rmi all
+    # - stage: rake run
+    #   script:
+    #   - bundle exec rake
